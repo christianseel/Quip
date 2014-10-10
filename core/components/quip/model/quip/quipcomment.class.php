@@ -296,12 +296,14 @@ class quipComment extends xPDOSimpleObject {
         }
         
         /* send email to poster saying their comment was approved */
-        $properties = $this->toArray();
-        $properties['url'] = $this->makeUrl('',array(),array('scheme' => 'full'));
-        $body = $this->xpdo->lexicon('quip.email_comment_approved',$properties);
-        $subject = $this->xpdo->lexicon('quip.email_comment_approved_subject');
-        $this->sendEmail($subject,$body,$this->get('email'));
-
+        if ($this->xpdo->context->getOption('quip.approvalNotify',true)) {
+            $properties = $this->toArray();
+            $properties['url'] = $this->makeUrl('',array(),array('scheme' => 'full'));
+            $body = $this->xpdo->lexicon('quip.email_comment_approved',$properties);
+            $subject = $this->xpdo->lexicon('quip.email_comment_approved_subject');
+            $this->sendEmail($subject,$body,$this->get('email'));
+        }
+        
         /** @var quipThread $thread */
         $thread = $this->getOne('Thread');
         return $thread ? $thread->notify($this) : true;
