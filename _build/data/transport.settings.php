@@ -62,6 +62,15 @@ $settings['quip.emailsReplyTo']->fromArray(array(
     'area' => 'email',
 ),'',true,true);
 
+$settings['quip.approvalNotify']= $modx->newObject('modSystemSetting');
+$settings['quip.approvalNotify']->fromArray(array(
+    'key' => 'quip.approvalNotify',
+    'value' => true,
+    'xtype' => 'combo-boolean',
+    'namespace' => 'quip',
+    'area' => 'email',
+),'',true,true);
+
 $settings['quip.allowed_tags']= $modx->newObject('modSystemSetting');
 $settings['quip.allowed_tags']->fromArray(array(
     'key' => 'quip.allowed_tags',
@@ -97,7 +106,5 @@ $settings['recaptcha.use_ssl']->fromArray(array(
     'namespace' => 'recaptcha',
     'area' => 'reCaptcha',
 ),'',true,true);
-
-
 
 return $settings;
